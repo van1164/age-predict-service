@@ -1,5 +1,62 @@
 <script>
-	import {Dropzone} from 'flowbite-svelte'
+	import {Dropzone, P, Button, Heading} from 'flowbite-svelte'
+  import axios from 'axios'
+  let value = null
+	let loading = false
+	let image = null
+  let file = null;
+  let age = null
+	
+    const dropHandle = (event) => {
+    value = [];
+    event.preventDefault();
+    if (event.dataTransfer.items) {
+      [...event.dataTransfer.items].forEach((item, i) => {
+        if (item.kind === 'file') {
+          const file = item.getAsFile();
+          value.push(file);
+          value = value;
+        }
+      });
+    } else {
+      [...event.dataTransfer.files].forEach((file, i) => {
+        value = file;
+      });
+    }
+  };
+
+  const handleChange = (event) => {
+	const input = event.target;
+  console.log(input)
+	if (input.files) {
+		file = input.files[0];
+	}
+	const reader = new FileReader();
+	reader.onload = function (event) {
+		image = event.target?.result;
+	}
+	if (input) {
+		reader.readAsDataURL(file);
+	}
+
+  };
+
+  async function send(){
+    loading = true
+
+    await axios.post("http://127.0.0.1:8000/upload",{
+        file
+      },
+      {
+        headers:{"content-type": "multipart/form-data"},
+      }).then(
+        response => {
+          console.log(response.data.age)
+          age = response.data.age
+        }
+      )
+  }
+
 </script>
 
 <svelte:head>
@@ -7,8 +64,47 @@
 </svelte:head>
 
 <section>
+  <form on:submit|preventDefault={send}>
+	<div class= "mb-3">
+		<Heading>사진을 올려보세요!!</Heading>
+	</div>
+    {#if image == null}
+    <Dropzone
+    id="dropzone"
+    on:drop={dropHandle}
+    on:dragover={(event) => {
+      event.preventDefault();
+    }}
+    on:change={handleChange}
+    defaultClass="flex flex-col justify-center items-center w-full h-96 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+    required
+    >
+    <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" /></svg>
 
+      <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+      <p class="text-xs text-gray-500 dark:text-gray-400">PNG,JPG</p>
+  </Dropzone>
+  {:else}
+  {#key image}
+  <img src={image} alt="Preview" />
+  {/key}
+	{/if}
 
+  {#key loading}
+  {#if loading == true}
+  <Button class = "mt-5 mb-5 h-30 w-full" type="submit" disabled >업로드중.....</Button>
+  {:else if file == null}
+  <Button class = "mt-5 mb-5 h-30 w-full" type="submit" disabled>업로드</Button>
+  {:else}
+  <Button class = "mt-5 mb-5 h-30 w-full" type="submit">업로드</Button>
+  {/if}
+{/key}
+</form>
+{#key age}
+  {#if age !=null}
+  <P>당신의 얼굴나이는 {age}살 입니다.</P>
+  {/if}
+{/key}
 </section>
 
 
@@ -21,23 +117,4 @@
 		flex: 0.6;
 	}
 
-	h1 {
-		width: 100%;
-	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
-	}
 </style>
