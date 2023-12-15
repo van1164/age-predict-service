@@ -5,12 +5,12 @@ WORKDIR /app
 # 
 COPY ./requirements.txt /app/requirements.txt
 
-COPY /etc/letsencrypt/live/face-predict-back.o-r.kr/privkey.pem /app/private.pem
-COPY /etc/letsencrypt/live/face-predict-back.o-r.kr/cert.pem /app/cert.pem
-# 
+COPY /home/ubuntu/_wildcard.example.com+2-key.pem /app/_wildcard.example.com+2-key.pem
+COPY /home/ubuntu_wildcard.example.com+2.pem /app/_wildcard.example.com+2.pem
+
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 # 
 COPY . /app
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080", "--ssl-keyfile","/app/private.pem","--ssl-certfile","/app/cert.pem"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080", "--ssl-keyfile","/app/_wildcard.example.com+2-key.pem","--ssl-certfile","/app/_wildcard.example.com+2.pem"]
