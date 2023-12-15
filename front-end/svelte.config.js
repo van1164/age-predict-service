@@ -9,7 +9,8 @@ const config = {
 		adapter: adapter({
 			pages: 'build',
 			assets: 'build',
-			fallback: 'index.html'
+			fallback: 'index.html',
+			port:'80'
 		})
 	},
 	preprocess: vitePreprocess()
