@@ -1,0 +1,5 @@
+uvicorn==0.24.0.post1
+torch==2.1.2
+timm==0.9.12
+fastapi==0.105.0
+python-multipart==0.0.6
