@@ -6,7 +6,7 @@ WORKDIR /app
 COPY ./requirements.txt /app/requirements.txt
 
 COPY /home/ubuntu/_wildcard.example.com+2-key.pem /app/_wildcard.example.com+2-key.pem
-COPY /home/ubuntu_wildcard.example.com+2.pem /app/_wildcard.example.com+2.pem
+COPY /home/ubuntu/_wildcard.example.com+2.pem /app/_wildcard.example.com+2.pem
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
