@@ -7,6 +7,10 @@
   let file = null;
   let age = null
 	
+  const reset = () =>{
+    location.href = "/"
+  }
+  
     const dropHandle = (event) => {
     value = [];
     event.preventDefault();
@@ -43,7 +47,6 @@
 
   async function send(){
     loading = true
-
     await axios.post("http://127.0.0.1:8000/upload",{
         file
       },
@@ -66,7 +69,7 @@
 <section>
   <form on:submit|preventDefault={send}>
 	<div class= "mb-3">
-		<Heading>사진을 올려보세요!!</Heading>
+		<P class="text-3xl xs:text-5xl sm:text-5xl base:text-7xl md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-7xl font-extrabold text-center">얼굴 나이를 예측해드려요</P>
 	</div>
     {#if image == null}
     <Dropzone
@@ -86,18 +89,23 @@
   </Dropzone>
   {:else}
   {#key image}
-  <img src={image} alt="Preview" />
+  <div class="w-full content-center m-auto">
+  <img class=" sm:w-56 md:w-72 lg:w-80 xl:w-96 2xl:w-96 m-auto" src={image} alt="Preview" />
+</div>
   {/key}
 	{/if}
-
   {#key loading}
-  {#if loading == true}
-  <Button class = "mt-5 mb-5 h-30 w-full" type="submit" disabled >업로드중.....</Button>
+  {#key age}
+  {#if age !=null}
+  <Button class = "mt-5 mb-5 h-30 w-full" on:click={reset}>다시하기</Button>
+  {:else if loading == true}
+  <Button color = blue class = "mt-5 mb-5 h-30 w-full" type="submit" disabled >업로드중.....</Button>
   {:else if file == null}
-  <Button class = "mt-5 mb-5 h-30 w-full" type="submit" disabled>업로드</Button>
+  <Button color = blue class = "mt-5 mb-5 h-30 w-full" type="submit" disabled>업로드</Button>
   {:else}
-  <Button class = "mt-5 mb-5 h-30 w-full" type="submit">업로드</Button>
+  <Button color = blue class = "mt-5 mb-5 h-30 w-full" type="submit">업로드</Button>
   {/if}
+{/key}
 {/key}
 </form>
 {#key age}

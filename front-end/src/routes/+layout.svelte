@@ -9,7 +9,7 @@
 	</main>
 
 	<footer>
-		<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+		<p>© 2023. van1164. all rights reserved.</p>
 	</footer>
 </div>
 
