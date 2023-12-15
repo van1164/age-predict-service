@@ -5,7 +5,7 @@ WORKDIR /app
 # 
 COPY ./requirements.txt /app/requirements.txt
 
-COPY /etc/letsencrypt/live/face-predict-back.o-r.kr/private.pem /app/private.pem
+COPY /etc/letsencrypt/live/face-predict-back.o-r.kr/privkey.pem /app/private.pem
 COPY /etc/letsencrypt/live/face-predict-back.o-r.kr/cert.pem /app/cert.pem
 # 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
