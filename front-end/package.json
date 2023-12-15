@@ -23,6 +23,7 @@
 	"type": "module",
 	"dependencies": {
 		"@sveltejs/adapter-node": "^2.0.0",
+		"@sveltejs/adapter-static": "^3.0.0",
 		"axios": "^1.6.2",
 		"svelte-file-dropzone": "^2.0.2"
 	}
