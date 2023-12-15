@@ -47,7 +47,7 @@
 
   async function send(){
     loading = true
-    await axios.post("http://52.95.252.53/upload",{
+    await axios.post("http://52.95.252.53:8080/upload",{
         file
       },
       {
