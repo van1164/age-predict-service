@@ -47,7 +47,7 @@
 
   async function send(){
     loading = true
-    await axios.post("localhost:8080/upload",{
+    await axios.post("https://localhost:8080/upload",{
         file
       },
       {
