@@ -5,12 +5,12 @@ WORKDIR /app
 # 
 COPY ./requirements.txt /app/requirements.txt
 
-COPY ./face-prediction.o-r.kr+3-key.pem /app/face-prediction.o-r.kr+3-key.pem
-COPY ./face-prediction.o-r.kr+3.pem /app/face-prediction.o-r.kr+3.pem
+# COPY ./face-prediction.o-r.kr+3-key.pem /app/face-prediction.o-r.kr+3-key.pem
+# COPY ./face-prediction.o-r.kr+3.pem /app/face-prediction.o-r.kr+3.pem
 
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 # 
 COPY . /app
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8090", "--ssl-keyfile","/app/face-prediction.o-r.kr+3-key.pem","--ssl-certfile","/app/face-prediction.o-r.kr+3.pem"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8090"]
