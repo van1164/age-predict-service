@@ -42,12 +42,12 @@
 	if (input) {
 		reader.readAsDataURL(file);
 	}
-
+  "https://face-prediction.o-r.kr/api/upload"
   };
 
   async function send(){
     loading = true
-    await axios.post("https://face-prediction.o-r.kr/api/upload",{
+    await axios.post("http://localhost:8000/upload",{
         file
       },
       {
@@ -110,7 +110,7 @@
 </form>
 {#key age}
   {#if age !=null}
-  <P>당신의 얼굴나이는 {age}살 입니다.</P>
+  <P class="text-3xl xs:text-3xl sm:text-3xl base:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-5xl font-extrabold text-center">당신의 얼굴나이는 {age}살 입니다.</P>
   {/if}
 {/key}
 </section>
