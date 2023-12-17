@@ -47,7 +47,7 @@
 
   async function send(){
     loading = true
-    await axios.post("http://localhost:8000/upload",{
+    await axios.post("https://https://face-prediction.o-r.kr/api/upload",{
         file
       },
       {
